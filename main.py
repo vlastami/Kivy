@@ -5,6 +5,9 @@ from kivy.uix.button import Button
 import random
 
 class Kalkulačka(App):
+    def stisk_tlacitka(self, instance):
+        instance.text = "Kliknuto"
+
     def build(self):
         hlavni_rozlozeni = BoxLayout(orientation = "vertical")
 
@@ -14,8 +17,10 @@ class Kalkulačka(App):
             for isloupec in range(1,4):
                 nahodna_barva = [random.random() for _ in range(3)]
                 nahodna_barva.append(1)
-                vnitrni_rozlozeni.add_widget(Button(text= f"{iradek*3+isloupec}",
-                                                    background_color= nahodna_barva))
+                tlacitko = Button(text= f"{iradek*3+isloupec}",
+                                                    background_color= nahodna_barva)
+                tlacitko.bind(on_press = self.stisk_tlacitka)
+                vnitrni_rozlozeni.add_widget(tlacitko)
             hlavni_rozlozeni.add_widget(vnitrni_rozlozeni)
 
         return hlavni_rozlozeni
